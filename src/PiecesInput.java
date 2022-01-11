@@ -52,10 +52,16 @@ public class PiecesInput {
 
         int boxesQuantity = 0;
         int palletsQuantity = 0;
-        if(panelTotalQuantity<=8){
+        if(panelTotalQuantity <=8 ){
             boxesQuantity =(int) Math.ceil(panelTotalQuantity/2.00);
         } else {
-            palletsQuantity =(int) Math.ceil(panelTotalQuantity/50.00);
+            palletsQuantity =(int) Math.floor(panelTotalQuantity/50.00);
+            if((panelTotalQuantity/50.00)-palletsQuantity <= 8){
+                double leftover = panelTotalQuantity - (palletsQuantity*50.00);
+                boxesQuantity =(int) Math.ceil(leftover/2.00);
+            }else {
+                palletsQuantity =(int) Math.ceil(panelTotalQuantity/50.00);
+            }
         }
 
         final double baseCostBox = 7.02;
@@ -69,5 +75,8 @@ public class PiecesInput {
         if(palletsQuantity!=0){
             System.out.println("Packaging price for the " +palletsQuantity+ " pallets needed is " +palletsTotalCost+ "EUR");
         }
+
+        double packagingTotalCost = boxesTotalCost + palletsTotalCost;
+        System.out.println("Total packaging cost is " +packagingTotalCost+ "EUR");
     }
 }
