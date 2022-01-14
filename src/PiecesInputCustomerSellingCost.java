@@ -5,62 +5,93 @@ public class PiecesInputCustomerSellingCost {
         final double sellingCostAcoustic = 119.22;
         final double sellingCostDeko = 99.15;
         final double sellingCostSample = 39.47;
+        final double onePanelM2 = 1.44;
 
         Scanner scanner = new Scanner(System.in);
 
         System.out.print("Choose the quantity of products to enter: ");
         int[] productsQuantity = new int[scanner.nextInt()];
 
-        double[] materialCostArray = new double[productsQuantity.length];
-        int[] panelQuantityArray = new int[productsQuantity.length];
+        double[] materialCostAcousticArray = new double[productsQuantity.length];
+        int[] panelQuantityAcousticArray = new int[productsQuantity.length];
+        double[] materialCostDekoArray = new double[productsQuantity.length];
+        int[] panelQuantityDekoArray = new int[productsQuantity.length];
+        double[] materialCostSampleArray = new double[productsQuantity.length];
         int[] sampleQuantityArray = new int[productsQuantity.length];
 
-        double materialTotalCost = 0;
-        int panelTotalQuantity = 0;
+        double materialTotalCostAcoustic = 0;
+        int panelTotalQuantityAcoustic = 0;
+        double materialTotalCostDeko = 0;
+        int panelTotalQuantityDeko = 0;
+        double materialTotalCostSample = 0;
         int sampleTotalQuantity = 0;
+
         for (int i = 0; i < productsQuantity.length; i++) {
             System.out.println("Enter parameters for the product no " + (1+i) + ": ");
             System.out.println("1.Accoustic; \t 2.Deko; \t 3.Samples.");
             System.out.print("Choose the product type: ");
             int type = scanner.nextInt();
 
-            System.out.println("1.White; \t 2.Black; \t 3.Red; \t 4.Yellow; \t 5.Blue; \t 6.Green; \t 7.Orange; \t 8.Purple; \t 9.Grey; \t 10.Brown.");
-            System.out.print("Choose the product colour: ");
-            int colour = scanner.nextInt();
-
-            int panelPcsQuantity = 0;
-            int samplePcsQuantity = 0;
-            if(type == 1 || type == 2){
-                System.out.print("Enter panel quantity in Pieces: ");
-                panelPcsQuantity = scanner.nextInt();
-            } else if(type == 3){
-                System.out.print("Enter sample packs quantity in Pieces: ");
-                samplePcsQuantity = scanner.nextInt();
-            }
-
-
             if (type == 1){
-                panelQuantityArray[i] = panelPcsQuantity;
-                materialCostArray[i] = panelPcsQuantity * sellingCostAcoustic;
-                System.out.println("Material cost for " +panelQuantityArray[i]+ " Acoustic panels in color no " +colour+ " is " +materialCostArray[i]+ "EUR");
-            } else if (type == 2){
-                panelQuantityArray[i] = panelPcsQuantity;
-                materialCostArray[i] = panelPcsQuantity * sellingCostDeko;
-                System.out.println("Material cost for " +panelQuantityArray[i]+ " Deko panels in color no " +colour+ " is " +materialCostArray[i]+ "EUR");
-            } else if (type == 3){
-                sampleQuantityArray[i] = samplePcsQuantity;
-                materialCostArray[i] = samplePcsQuantity * sellingCostSample;
-                System.out.println("Material cost for " +sampleQuantityArray[i]+ " Sample packs in color no " +colour+ " is " +materialCostArray[i]+ "EUR");
+                System.out.println("1.White; \t 2.Black; \t 3.Red; \t 4.Yellow; \t 5.Blue; \t 6.Green; \t 7.Orange; \t 8.Purple; \t 9.Grey; \t 10.Brown.");
+                System.out.print("Choose the product colour: ");
+                int colour = scanner.nextInt();
+                System.out.print("Enter panel quantity in Pieces: ");
+                int panelPcsQuantity = scanner.nextInt();
+                double m2Quantity = panelPcsQuantity*onePanelM2;
+                System.out.println("the panel pieces quantity "+panelPcsQuantity+ "pcs can cover area of " +m2Quantity+ "m2");
+                panelQuantityAcousticArray[i] = panelPcsQuantity;
+                materialCostAcousticArray[i] = panelPcsQuantity * sellingCostAcoustic;
+                System.out.println("Material cost for " +panelQuantityAcousticArray[i]+ " Acoustic panels in color no " +colour+ " is " +materialCostAcousticArray[i]+ "EUR");
+                materialTotalCostAcoustic += materialCostAcousticArray[i];
+                panelTotalQuantityAcoustic += panelQuantityAcousticArray[i];
+            }else if(type == 2){
+                System.out.println("1.White; \t 2.Black; \t 3.Red; \t 4.Yellow; \t 5.Blue; \t 6.Green; \t 7.Orange; \t 8.Purple; \t 9.Grey; \t 10.Brown.");
+                System.out.print("Choose the product colour: ");
+                int colour = scanner.nextInt();
+                System.out.print("Enter panel quantity in Pieces: ");
+                int panelPcsQuantity = scanner.nextInt();
+                double m2Quantity = panelPcsQuantity*onePanelM2;
+                System.out.println("the panel pieces quantity "+panelPcsQuantity+ "pcs can cover area of " +m2Quantity+ "m2");
+                panelQuantityDekoArray[i] = panelPcsQuantity;
+                materialCostDekoArray[i] = panelPcsQuantity * sellingCostDeko;
+                System.out.println("Material cost for " + panelQuantityDekoArray[i] + " Deko panels in color no " + colour + " is " + materialCostDekoArray[i] + "EUR");
+                materialTotalCostDeko += materialCostDekoArray[i];
+                panelTotalQuantityDeko += panelQuantityDekoArray[i];
             }
-
-            materialTotalCost += materialCostArray[i];
-            panelTotalQuantity += panelQuantityArray[i];
-            sampleTotalQuantity += sampleQuantityArray[i];
+            else if(type == 3){
+                System.out.print("Enter sample packs quantity in Pieces: ");
+                int samplePcsQuantity = scanner.nextInt();
+                sampleQuantityArray[i] = samplePcsQuantity;
+                materialCostSampleArray[i] = samplePcsQuantity * sellingCostSample;
+                System.out.println("Material cost for " +sampleQuantityArray[i]+ " Sample packs is " +materialCostSampleArray[i]+ "EUR");
+                materialTotalCostSample += materialCostSampleArray[i];
+                sampleTotalQuantity += sampleQuantityArray[i];
+            }
         }
 
-        System.out.println("Total material Cost is " +materialTotalCost+ "EUR");
-        System.out.println("Total panel Quantity is " +panelTotalQuantity+ "pcs");
-        System.out.println("Total sample packs Quantity is " +sampleTotalQuantity+ "pcs");
+        System.out.println();
+
+        if(panelTotalQuantityAcoustic != 0) {
+            System.out.println("Acoustic panel Quantity is " +panelTotalQuantityAcoustic+ "pcs");
+        }
+
+        if(panelTotalQuantityDeko != 0) {
+            System.out.println("Deko panel Quantity is " +panelTotalQuantityDeko+ "pcs");
+        }
+
+        int panelTotalQuantity = panelTotalQuantityAcoustic + panelTotalQuantityDeko;
+
+        if(panelTotalQuantity != 0){
+            System.out.println("Total panel Quantity is " +panelTotalQuantity+ "pcs");
+        }
+        if(sampleTotalQuantity != 0){
+            System.out.println("Total sample packs Quantity is " +sampleTotalQuantity+ "pcs");
+        }
+
+        System.out.println();
+        System.out.println("Total material Cost is " +(materialTotalCostAcoustic+materialTotalCostDeko+materialTotalCostSample)+ "EUR");
+        System.out.println();
 
         int boxesQuantity = 0;
         int palletsQuantity = 0;
@@ -82,22 +113,23 @@ public class PiecesInputCustomerSellingCost {
             bubbleWrapQuantity = sampleTotalQuantity;
         }
 
-        final double sellingCostBox = 7.02;
-        final double sellingCostPallet = 33.06;
-        final double sellingCostBubbleWrap = 0.32;
+        final double baseCostBox = 7.02;
+        final double baseCostPallet = 33.06;
+        final double baseCostBubbleWrap = 0.32;
 
-        double boxesTotalCost = boxesQuantity*sellingCostBox;
+        double boxesTotalCost = boxesQuantity*baseCostBox;
         if(boxesQuantity!=0){
             System.out.println("Packaging price for the " +boxesQuantity+ " boxes needed is " +boxesTotalCost+ "EUR");
         }
-        double palletsTotalCost = palletsQuantity*sellingCostPallet;
+        double palletsTotalCost = palletsQuantity*baseCostPallet;
         if(palletsQuantity!=0){
             System.out.println("Packaging price for the " +palletsQuantity+ " pallets needed is " +palletsTotalCost+ "EUR");
         }
-        double bubbleWrapTotalCost = bubbleWrapQuantity*sellingCostBubbleWrap;
+        double bubbleWrapTotalCost = bubbleWrapQuantity*baseCostBubbleWrap;
         System.out.println("Packaging price for the " +bubbleWrapQuantity+ " bubble wraps needed is " +bubbleWrapTotalCost+ "EUR");
 
 
+        System.out.println();
         double packagingTotalCost = boxesTotalCost + palletsTotalCost +bubbleWrapTotalCost;
         System.out.println("Total packaging cost is " +packagingTotalCost+ "EUR");
     }
