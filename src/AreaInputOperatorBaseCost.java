@@ -65,7 +65,7 @@ public class AreaInputOperatorBaseCost {
                 panelTotalQuantityDeko += panelQuantityDekoArray[i];
             }
             else if(type == 3){
-                System.out.print("Enter sample packs quantity in Pieces: ");
+                System.out.print("Enter sample packs(all colours included) quantity in Pieces: ");
                 int samplePcsQuantity = scanner.nextInt();
                 sampleQuantityArray[i] = samplePcsQuantity;
                 materialCostSampleArray[i] = samplePcsQuantity * baseCostSample;
